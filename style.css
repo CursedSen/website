@@ -14,7 +14,7 @@
 
   body {
     display: flex;
-    color: #83c3dc;
+    color: #9b1a11;
     background-color: #151515;
     margin-right: 9em;
     padding: 1em;
@@ -50,7 +50,7 @@
   h2 {
     font-size: 1.2em;
     font-weight: 600;
-    color: #83c3dc;
+    color: #db2d20;
     grid-column: 1/-1;
     text-align: center;
     margin-bottom: 2.3em;
@@ -80,13 +80,13 @@
   }
   
   a {
-    color: #83c3dc;
+    color: #db2d20;
     font-size: 1.1em;
     text-decoration: none;
   }
   
   a:hover {
-    color: #4154c4;
+    color: #9b1a11;
     font-style: italic;
   }
   
