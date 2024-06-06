@@ -21,6 +21,7 @@ body, html {
     height: 100%;
     object-fit: cover;
     filter: blur(8px) brightness(0.5);
+    transform: scale(1.1)
 }
 
 .profile-container {
@@ -90,4 +91,10 @@ body, html {
 
 .info-box ul li {
     margin: 10px 0;
+}
+
+.social-link-color{
+    a:link {
+        color: lightblue;
+      }
 }
