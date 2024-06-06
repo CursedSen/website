@@ -1,22 +1,93 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+body, html {
     margin: 0;
     padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+}
+
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px) brightness(0.5);
+}
+
+.profile-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
+    width: 80%;
+    max-width: 800px;
+    margin: 50px auto;
+    z-index: 1;
 }
-.container {
-    text-align: center;
+
+.profile-header, .info-box {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
-h1 {
-    font-size: 2.5em;
-    color: #333;
-    margin-bottom: 10px;
+
+.profile-header {
+    display: flex;
+    align-items: center;
 }
-h2 {
-    font-size: 1.5em;
-    color: #666;
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.display-name {
+    font-size: 2em;
+    margin: 0;
+}
+
+.username {
+    font-size: 0.9em;
+    color: #cccccc;
+    margin: 0;
+}
+
+.bio {
+    margin-top: 10px;
+    font-size: 1em;
+}
+
+.info-box h3 {
+    color: #858169;
+    margin-top: 0;
+    border-bottom: 1px solid #555555;
+    padding-bottom: 10px;
+}
+
+.info-box ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.info-box ul li {
+    margin: 10px 0;
 }
