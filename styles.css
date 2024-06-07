@@ -98,6 +98,6 @@ body, html {
     background-color: #686451;
 }
 
-.btn hover {
+.btn:hover {
     background-color: #585545;
 }
