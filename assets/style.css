@@ -27,6 +27,6 @@ body {
 
 .content img {
     margin: 20px 0;
-    width: 30rem; /* Set the desired width */
-    height: auto; /* Maintain aspect ratio */
+    width: 30rem;
+    height: auto;
 }
