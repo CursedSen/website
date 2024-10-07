@@ -148,8 +148,11 @@ body, html {
 }
 
 @media (max-width: 1180px) {
-    .profile-container {
+    body, html {
         overflow: scroll;
+    }
+
+    .profile-container {
         width: 90%;
         padding: 10px;
         box-sizing: border-box;
@@ -159,11 +162,11 @@ body, html {
         display: grid;
         grid-template-columns: 1fr;
         gap: 10px;
-        width: 100%;
+        width: 90%;
     }
 
     .btn {
-        width: 100%;
+        width: auto;
         text-align: center;
     }
 
