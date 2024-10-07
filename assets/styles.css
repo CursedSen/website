@@ -147,7 +147,13 @@ body, html {
     margin-left: 2rem;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1180px) {
+    .profile-container {
+        width: 90%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
     .btn-container {
         display: grid;
         grid-template-columns: 1fr;
@@ -158,5 +164,31 @@ body, html {
     .btn {
         width: 100%;
         text-align: center;
+    }
+
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+    }
+
+    .display-name {
+        font-size: 1.5em;
+    }
+
+    .username {
+        font-size: 1em;
+    }
+
+    .bio {
+        font-size: 0.9em;
+    }
+
+    .info-box {
+        padding: 15px;
+    }
+
+    .info-box h3 {
+        font-size: 1.2em;
     }
 }
