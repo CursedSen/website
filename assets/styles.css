@@ -147,52 +147,16 @@ body, html {
     margin-left: 2rem;
 }
 
-@media (max-width: 1180px) {
-    body, html {
-        overflow: visible;
-    }
-
-    .profile-container {
-        width: 90%;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-
+@media (max-width: 900px) {
     .btn-container {
         display: grid;
         grid-template-columns: 1fr;
         gap: 10px;
-        width: 90%;
+        width: 100%;
     }
 
     .btn {
-        width: auto;
+        width: 100%;
         text-align: center;
-    }
-
-    .profile-picture {
-        width: 100px;
-        height: 100px;
-        margin-right: 10px;
-    }
-
-    .display-name {
-        font-size: 1.5em;
-    }
-
-    .username {
-        font-size: 1em;
-    }
-
-    .bio {
-        font-size: 0.9em;
-    }
-
-    .info-box {
-        padding: 15px;
-    }
-
-    .info-box h3 {
-        font-size: 1.2em;
     }
 }
