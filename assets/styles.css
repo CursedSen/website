@@ -4,6 +4,7 @@
 }
 
 body, html {
+    background-color: black;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -44,12 +45,12 @@ body, html {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.1);
     padding: 20px;
-    border-radius: 10px;
-    border-style: groove;
+    border-radius: 0;
+    border-style: solid;
     margin-bottom: 20px;
-    backdrop-filter: blur(4rem) saturate(180%) brightness(80%);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(2rem) saturate(150%) brightness(80%);
+    box-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .profile-header {
@@ -60,9 +61,9 @@ body, html {
 .profile-picture {
     width: 150px;
     height: 150px;
-    border-radius: 5%;
+    border-radius: 0;
     margin-right: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .profile-info {
@@ -73,6 +74,7 @@ body, html {
 .display-name {
     font-size: 2em;
     margin: 0;
+    margin-top: 1rem;
 }
 
 .username {
@@ -107,10 +109,10 @@ body, html {
     background-color: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: #ffffff;
-    padding: 10px 20px;
+    padding: 10px 15px;
     text-decoration: none;
-    border-radius: 5px;
     transition: background-color 0.3s, border-color 0.3s;
+    border-radius: 0;
 }
 
 .btn:hover {
@@ -120,7 +122,7 @@ body, html {
 
 .btn-container {
     display: flex;
-    justify-content: left;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
