@@ -6,14 +6,15 @@
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
     width: 100%;
-    overflow: hidden;
+    height: 100%;
     font-family: 'Arial', sans-serif;
     color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
 .profile-container {
@@ -25,6 +26,9 @@ body, html {
     margin: 0;
     z-index: 1;
     position: relative;
+    min-height: 100vh;
+    justify-content: center;
+    padding: 20px;
 }
 
 .background-video {
@@ -60,6 +64,7 @@ body, html {
 .profile-header {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .profile-picture {
@@ -68,6 +73,7 @@ body, html {
     border-radius: 0;
     margin-right: 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: width 0.3s, height 0.3s;
 }
 
 .profile-info {
@@ -132,6 +138,7 @@ body, html {
 
 .btn-container .btn {
     margin: 1rem 1rem;
+    width: auto;
 }
 
 .link {
@@ -147,7 +154,92 @@ body, html {
     margin-left: 2rem;
 }
 
+@media (max-width: 1200px) {
+    .profile-container {
+        width: 60%;
+    }
+
+    .display-name {
+        font-size: 1.8em;
+    }
+
+    .profile-picture {
+        width: 130px;
+        height: 130px;
+    }
+}
+
 @media (max-width: 900px) {
+    .profile-container {
+        width: 80%;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-picture {
+        width: 180px;
+        height: 180px;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .display-name {
+        font-size: 1.6em;
+        text-align: center;
+    }
+
+    .username {
+        font-size: 1em;
+        text-align: center;
+    }
+
+    .bio {
+        font-size: 0.9em;
+        text-align: center;
+    }
+
+    .info-box {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-container {
+        width: 95%;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-picture {
+        width: 200px;
+        height: 200px;
+    }
+
+    .display-name {
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    .username {
+        font-size: 0.9em;
+        text-align: center;
+    }
+
+    .bio {
+        font-size: 0.85em;
+        text-align: center;
+    }
+
+    .info-box h3 {
+        font-size: 1.2em;
+    }
+
     .btn-container {
         display: grid;
         grid-template-columns: 1fr;
@@ -158,5 +250,22 @@ body, html {
     .btn {
         width: 100%;
         text-align: center;
+        font-size: 0.9em;
+        padding: 8px 10px;
+    }
+
+    .info-box ul {
+        margin-left: 1rem;
+    }
+
+    .notable {
+        margin-left: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .btn {
+        font-size: 0.8em;
+        padding: 7px 8px;
     }
 }
