@@ -29,7 +29,7 @@ h1,h2,h3 {
 	background-repeat: no-repeat;
 }
 @media screen and (max-width: 1180px) {
-	#pwn {
+	#image {
 		display: none !important;
 	}
 }
