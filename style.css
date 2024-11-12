@@ -28,7 +28,7 @@ h1,h2,h3 {
 	background-size: cover;
 	background-repeat: no-repeat;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1180px) {
 	#pwn {
 		display: hidden !important;
 	}
