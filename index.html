@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta property="og:title" content="Senko's Website">
     <meta property="og:description" content="This is my website.">
-    <meta property="og:image" content="https://sen.wtf/favicon.gif>
+    <meta property="og:image" content="https://sen.wtf/favicon.gif">
     <meta property="og:url" content="https://sen.wtf">
     <meta property="og:type" content="website">
 
@@ -17,8 +17,7 @@
 <body style="margin: auto; max-width: 650px">
     <div style="margin-top: 40px;"></div>
     <h1>Hi! I'm <span style="color: #d41e3c;">Senko</span>.</h1>
-	<p>I'm a 19-year old catto from the Netherlands, interested in systems, security and networking.</p>
-	<p>You can get in contact with me using the following:</p>
+	<p id="typingText" style="min-height: 1.2rem;"> </p>
 	<nav style="display: flex; align-items: center; margin-top: 20px;">
 		<span><a href="https://steamcommunity.com/id/ohsenko"><img src="img/steam.png" width= 24px></a></span>
 		<span><a href="https://github.com/ohsenko"><img src="img/github.png" width=25px></a></span>
@@ -40,25 +39,72 @@
     <h2>Things I use:</h2>
     <ul>
         <li><a href="https://archlinux.org/">Arch, btw</a></li>
-		<li><a href="https://hyprland.org/">Hyprland</a></li>
-        <li><a href="https://kde.org/plasma-desktop/">KDE Plasma (fallback)</a></li>
-		<li><a href="https://neovim.io/">NeoVim</a></li>
+        <li><a href="https://kde.org/plasma-desktop/">KDE Plasma</a></li>
+		<li><a href="https://vscodium.com/">VSCodium</a></li>
 		<li><a href="/ssh.html">My SSH keys</a></li>
 		<li><a href="https://github.com/ohsenko/dotfiles/">My personal dotfiles</a></li>
     </ul>
 
 	<h2>This website is a heavy W.I.P !</h2>
-	<p>If you have inspiration ideas, or even advice, please contact me on <a href="https://discord.com/users/374589381752913930"">Discord.</a></p>
+	<p>If you have inspiration ideas, or even advice, please contact me on <a href="https://discord.com/users/374589381752913930">Discord.</a></p>
 	<p>Alternatively, you can fork my website <a href="https://github.com/ohsenko/ohsenko.github.io">here</a> and make a pull request!</p>
 	<p>If making a pull request, please follow proper PR etiquette (K.I.S.S for example)</p>
 
 	<div id="image"></div>
 
 	<script>
+        let sentences = [
+            "I'm a 19-year old catto from the Netherlands.",
+            "Interested in systems, security and networking.",
+			"Cat lover! :3",
+            "Avid Arch Linux user, btw.",
+			"Open-source enthusiast.",
+			"System administrator.",
+			"Hobby programmer.",
+			"Dark Souls speedrunner.",
+			"OptiFine shill.",
+        ];
+        let sentenceIndex = 0;
+        let textElement = document.getElementById("typingText");
+        let typingSpeed = 20;
+        let deletingSpeed = 10;
+        let pauseBetweenSentences = 2500;
+
+        function typeText() {
+            let sentence = sentences[sentenceIndex];
+            let i = 0;
+            textElement.textContent = "";
+            let typingInterval = setInterval(() => {
+                textElement.textContent += sentence.charAt(i);
+                i++;
+                if (i === sentence.length) {
+                    clearInterval(typingInterval);
+                    setTimeout(deleteText, pauseBetweenSentences);
+                }
+            }, typingSpeed);
+        }
+
+        function deleteText() {
+            let i = textElement.textContent.length;
+            let deletingInterval = setInterval(() => {
+                textElement.textContent = textElement.textContent.slice(0, i - 1);
+                i--;
+                if (i === 0) {
+                    clearInterval(deletingInterval);
+                    sentenceIndex = (sentenceIndex + 1) % sentences.length;
+                    setTimeout(typeText, 500);
+                }
+            }, deletingSpeed);
+        }
+
+       
+        typeText(); // start the above
+
+		// title scroll xdd
         let originalTitle = "技術は、どんなに速くても無駄になることがある。だが、経験は裏切らない。~ ";
-        let scrollSpeed = 450;
         let title = originalTitle;
-        
+        let scrollSpeed = 450;
+
         function scrollTitle() {
             document.title = title;
             title = title.substring(1) + title.charAt(0);
@@ -66,4 +112,6 @@
 
         setInterval(scrollTitle, scrollSpeed);
     </script>
+
+</body>
 </html>
