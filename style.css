@@ -13,6 +13,10 @@ a:link {
 	color: #000;
 	font-style: italic;
 }
+a:visited {
+	color: #000;
+	font-style: italic;
+}
 li {
 	line-height: 1.4;
 }
@@ -20,14 +24,14 @@ h1,h2,h3 {
 	line-height: 1.0;
 }
 #image {
-	background-image: url('img/takumi.png');
-	position: fixed;
-	right: 0px;
-	bottom: 0px;
-	width: 370px;
-	height: 314px;
-	background-size: cover;
-	background-repeat: no-repeat;
+    position: fixed;
+    right: -30px;
+    bottom: -5px;
+    width: 400px;
+    height: 450px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 @media screen and (max-width: 1180px) {
 	#image {

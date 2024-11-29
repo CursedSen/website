@@ -16,19 +16,19 @@
 </head>
 <body style="margin: auto; max-width: 650px">
     <div style="margin-top: 40px;"></div>
-    <h1>Hi! I'm <span style="color: #d41e3c;">Senko</span>.</h1>
+    <h1>This is "<span style="color: #d41e3c;">Senko</span>"</h1>
 	<p id="typingText" style="min-height: 1.2rem;"> </p>
 	<nav style="display: flex; align-items: center; margin-top: 20px;">
-		<span><a href="https://steamcommunity.com/id/ohsenko"><img src="img/steam.png" width= 24px></a></span>
-		<span><a href="https://github.com/ohsenko"><img src="img/github.png" width=25px></a></span>
-		<span><a href="https://discord.com/users/374589381752913930"><img src="img/discord.png" width= 25px></a></span>
-		<span><a href="mailto:im@sen.wtf"><img src="img/email.png" height=30px></a></span>
-		<span><a href="https://twitter.com/ohsenko"><img src="img/twitterlogo.png" width=25px></a></span>
-		<span><a href="https://www.youtube.com/c/ohsenko"><img src="img/youtubelogo.png" width=25px></a></span>
-		<span><a href="https://bsky.app/profile/sen.wtf"><img src="img/bsky.svg" width=23px></a></span>
+        <span><a href="https://discord.com/users/374589381752913930"><img src="img/discord.png" height=24px></a></span>
+		<span><a href="https://steamcommunity.com/id/ohsenko"><img src="img/steam.png" height= 24px></a></span>
+        <span><a href="https://bsky.app/profile/sen.wtf"><img src="img/bsky.svg" height=22px></a></span>
+        <span><a href="https://github.com/ohsenko"><img src="img/github.png" height=24px></a></span>
+		<span><a href="https://twitter.com/ohsenko"><img src="img/twitterlogo.png" height=24px></a></span>
+        <span><a href="mailto:contact@sen.wtf"><img src="img/email.png" height=24px></a></span>
+        <span><a href="https://www.youtube.com/c/ohsenko"><img src="img/youtubelogo.png" height=24px></a></span>
 	</nav>
 	<hr>
-	<p>I am a huge weeb and video game enthusiast. Choking CS2 matches with my friend <a href="https://thisiselias.github.io/">Elias</a>, watching anime and playing Final Fantasy XIV are some of my favorite things to do.</p>
+	<p>I am a huge weeb and video game enthusiast. I love tech and (almost) everything revolving around it. This page is one of my earlier conceptions of this interest, and has been edited a lot over the years. You can read more about me <a href="/aboutme.html">Here</a></span>.</p>
 	<p>When adding me on Steam, leave a comment on my profile so I know you're not a bot.</p>
     <h2>Currently working on</h2>
     <ul>
@@ -38,26 +38,30 @@
     </ul>
 
     <h2>Things I use:</h2>
-    <h3>Main rig, "Arrow"</h3>
     <ul>
-        <li><a href="https://https://www.microsoft.com/nl-nl/software-download/windows11">Windows 11</a></li>
-        <li><a href="https://thorium.rocks/">Thorium Browser</a></li>
-		<li><a href="https://vscodium.com/">VSCodium</a></li>
+        <li>My main PC, <a style="color: #d41e3c; text-decoration: underline;" href="/arrow.html">Arrow</a></li>
+        <li>My work rig, <a style="color: #d41e3c; text-decoration: underline;" href="/frankendesk.html">FrankenDesk</a> (page is W.I.P)</li>
+        <p></p>
 		<li><a href="/ssh.html">My SSH keys</a></li>
-    </ul>
-    <h3>Work PC, "HP FrankenDesk"</h3>
-    <ul>
-        <li><a href="https://sen.wtf/img/frankendesk">HP FrankenDesk</a></li>
-        <li><a href="https://archlinux.org/">Arch, btw</a></li>
-        <li><a href="https://kde.org/plasma-desktop/">KDE Plasma</a></li>
-		<li><a href="https://vscodium.com/">VSCodium</a></li>
-		<li><a href="https://github.com/ohsenko/dotfiles/">My personal dotfiles</a></li>
+        <li>A private repo of scripts to make life easier. *</li>
+        <p>* I will make these public once I am satisfied with them.</p>
     </ul>
 
-	<h2>This website is a heavy W.I.P !</h2>
-	<p>If you have inspiration ideas, or even advice, please contact me on <a href="https://discord.com/users/374589381752913930">Discord.</a></p>
-	<p>Alternatively, you can fork my website <a href="https://github.com/ohsenko/ohsenko.github.io">here</a> and make a pull request!</p>
-	<p>If making a pull request, please follow proper PR etiquette (K.I.S.S for example)</p>
+    <h2>Other pages to visit:</h2>
+    <ul>
+        <li>My main rig, <a style="color: #d41e3c; text-decoration: underline;" href="/arrow.html">Arrow</a></li>
+        <li>My <a style="color: #d41e3c; text-decoration: underline;" href="/aboutme.html">about me</a></li>
+    </ul>
+
+
+    <h2>My friends:</h2>
+    <ul>
+        <li><a href="https://thisiselias.github.io">Elias</a></li>
+        <li><a href="https://jackdotjs.github.io">Jack</a></li>
+        <li><a href="https://twitch.tv/bunnirubi">Rubi</a></li>
+        <li><a href="https://dev1ss0.github.io/bio/">Dev1ss0</a></li>
+
+    </ul>
 
 	<div id="image"></div>
 
@@ -120,6 +124,18 @@
         }
 
         setInterval(scrollTitle, scrollSpeed);
+
+        window.onload = function() {
+        var images = [
+            'img/frieren.png',
+            'img/takumi.png',
+            'img/sen.png',
+        ];
+
+        var randomImage = images[Math.floor(Math.random() * images.length)];
+
+        document.getElementById('image').style.backgroundImage = 'url(' + randomImage + ')';
+    };
     </script>
 
 </body>
