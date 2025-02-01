@@ -11,7 +11,8 @@ a {
     transition: transform 0.1s;
 }
 a:hover {
-    transform: scale(1.03);
+    transform: translateX(3px);
+    transition: transform 0.3s ease;
 }
 @font-face { 
     font-family: "unifont"; 
