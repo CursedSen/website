@@ -1,0 +1,29 @@
+body {
+    color: #FEFEFE;
+    background-color: #000;
+    margin: 0 auto;
+    padding: 1em 0 1em 0;
+}
+a { 
+    color: red;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.1s;
+}
+a:hover {
+    transform: scale(1.03);
+}
+@font-face { 
+    font-family: "unifont"; 
+    src: url("../fonts/unifont.woff") format('woff'); 
+}
+pre { 
+    font-family: "unifont", "Lucida Console", monospace, Monaco; 
+    font-size:16px; 
+    line-height: 1.0;
+    padding-left: 20px;
+}
+.txtdiv {
+    display: block;
+    text-align: left;
+}
