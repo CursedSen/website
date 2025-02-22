@@ -80,13 +80,53 @@
       background: #6e7681;
     }
 
-    .content {
+    .tabs {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 20px;
+      background: #1a1a1a;
+      padding: 2px;
+    }
+
+    .light-mode .tabs {
+      background: #d1d1d1;
+    }
+
+    .tab-button {
+      padding: 10px 20px;
+      background: var(--card-bg);
+      border: none;
+      cursor: pointer;
+      color: var(--text-color);
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .tab-button.active {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    .tab-button:hover:not(.active) {
+      background: #30363d;
+    }
+
+    .light-mode .tab-button:hover:not(.active) {
+      background: #e6e6e6;
+    }
+
+    .tab-content {
+      display: none;
       background: var(--card-bg);
       padding: 20px;
       box-shadow: var(--shadow);
     }
 
-    .content h2 {
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content h2 {
       margin-bottom: 15px;
       font-size: 18px;
       font-weight: 600;
@@ -94,44 +134,42 @@
       padding-bottom: 5px;
     }
 
-    .content h3 {
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 10px;
-      color: var(--accent-color);
-    }
-
-    .content p {
+    .command {
       margin-bottom: 15px;
-    }
-
-    .content ul {
-      list-style: none;
-      margin-bottom: 15px;
-    }
-
-    .content li {
-      margin: 8px 0;
       padding-left: 20px;
       position: relative;
     }
 
-    .content li:before {
-      content: "■";
+    .command:before {
+      content: ">";
       color: var(--accent-color);
       position: absolute;
       left: 0;
-      font-size: 10px;
-      top: 5px;
+      font-size: 14px;
+      top: 2px;
     }
 
-    .content a {
+    .command .name {
+      font-weight: 600;
+      margin-right: 10px;
+    }
+
+    .command .aliases {
+      font-style: italic;
+      color: #a0a8b3;
+    }
+
+    .command p {
+      margin-top: 5px;
+    }
+
+    .tab-content a {
       color: var(--accent-color);
       text-decoration: none;
       font-weight: 500;
     }
 
-    .content a:hover {
+    .tab-content a:hover {
       text-decoration: underline;
     }
 
@@ -139,6 +177,11 @@
       .header {
         flex-direction: column;
         gap: 10px;
+      }
+
+      .tabs {
+        flex-direction: column;
+        gap: 5px;
       }
     }
   </style>
@@ -149,18 +192,452 @@
     <div class="header">
       <h1>Cro Documentation</h1>
       <div>
-        <button class="back-button" onclick="window.location.href='/'">Back</button>
+        <button class="back-button" onclick="window.location.href='index.html'">Back</button>
         <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
       </div>
     </div>
 
-    <div class="content">
-      <h2>Bot Documentation</h2>
-      <p>Work in Progress :3</p>
+    <div class="tabs">
+      <button class="tab-button active" onclick="openTab('moderation')">Moderation</button>
+      <button class="tab-button" onclick="openTab('admin')">Admin</button>
+      <button class="tab-button" onclick="openTab('casual')">Casual</button>
+      <button class="tab-button" onclick="openTab('fun')">Fun</button>
+      <button class="tab-button" onclick="openTab('help')">Help</button>
+    </div>
+
+    <div id="moderation" class="tab-content active">
+      <h2>Moderation Commands</h2>
+      <div class="command">
+        <span class="name">ban</span> <span class="aliases">(alias: kill)</span>
+        <p>Ban a user from the server. Can ban users not in the server. Includes a "Compromised account" option that
+          auto-unbans after a security notice.</p>
+        <p><strong>Usage:</strong> <code>!ban <user> [reason]</code></p>
+        <p><strong>Example:</strong> <code>!ban @Sen Spamming</code> or <code>!ban 374589381752913930 Bot account</code>
+        </p>
+        <p><strong>Note:</strong> Requires confirmation. Can use mentions, IDs, or username#discriminator. "Compromised"
+          bans for 1 day then unbans.</p>
+        <p><strong>Permissions:</strong> Requires Ban Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">cleanup</span> <span class="aliases">(No aliases)</span>
+        <p>Remove Cro’s own messages from the channel.</p>
+        <p><strong>Usage:</strong> <code>!cleanup [search]</code></p>
+        <p><strong>Example:</strong> <code>!cleanup 50</code> (defaults to 100 messages)</p>
+        <p><strong>Permissions:</strong> Requires Manage Messages permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">editrecord</span> <span class="aliases">(alias: editcase)</span>
+        <p>Edit the reason for a moderation case by its case ID.</p>
+        <p><strong>Usage:</strong> <code>!editrecord <case_id> <new_reason></code></p>
+        <p><strong>Example:</strong> <code>!editcase ABCDEFGH Updated: Spam violation</code></p>
+        <p><strong>Permissions:</strong> Requires Kick Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">kick</span> <span class="aliases">(alias: punch)</span>
+        <p>Kick a member from the server.</p>
+        <p><strong>Usage:</strong> <code>!kick <member> [reason]</code></p>
+        <p><strong>Example:</strong> <code>!kick @Sen Disruption</code></p>
+        <p><strong>Note:</strong> Requires confirmation. Can’t kick users with higher or equal roles.</p>
+        <p><strong>Permissions:</strong> Requires Kick Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">lock</span> <span class="aliases">(No aliases)</span>
+        <p>Lock a channel, preventing @everyone from sending messages.</p>
+        <p><strong>Usage:</strong> <code>!lock [channel]</code></p>
+        <p><strong>Example:</strong> <code>!lock #general</code> or <code>!lock</code> (current channel)</p>
+        <p><strong>Permissions:</strong> Requires Manage Channels permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">massban</span> <span class="aliases">(No aliases)</span>
+        <p>Ban multiple members at once with an optional message deletion period.</p>
+        <p><strong>Usage:</strong> <code>!massban [days] <members> [reason]</code></p>
+        <p><strong>Example:</strong> <code>!massban 1 @Sen @User2 Spamming</code></p>
+        <p><strong>Note:</strong> Requires confirmation. Days defaults to 2. Use mentions or IDs.</p>
+        <p><strong>Permissions:</strong> Requires Ban Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">mute</span> <span class="aliases">(alias: silence)</span>
+        <p>Mute a member with an optional duration (default: 1 hour). Supports w/d/h/m/s.</p>
+        <p><strong>Usage:</strong> <code>!mute <member> [duration] [reason]</code></p>
+        <p><strong>Example:</strong> <code>!mute @Sen 2h Spamming</code> or <code>!silence @Sen</code></p>
+        <p><strong>Note:</strong> Max 28 days. Can’t mute higher or equal roles.</p>
+        <p><strong>Permissions:</strong> Requires Moderate Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">nickname</span> <span class="aliases">(alias: nick)</span>
+        <p>Change a member’s nickname. Omitting the new nickname resets it.</p>
+        <p><strong>Usage:</strong> <code>!nickname <member> [new_nick]</code></p>
+        <p><strong>Example:</strong> <code>!nick @Sen Senpai</code> or <code>!nick @Sen</code></p>
+        <p><strong>Note:</strong> Max 32 characters.</p>
+      </div>
+      <div class="command">
+        <span class="name">note</span> <span class="aliases">(alias: setnote)</span>
+        <p>Add a note to a user’s moderation record.</p>
+        <p><strong>Usage:</strong> <code>!note <member> <note></code></p>
+        <p><strong>Example:</strong> <code>!note @Sen Watch for spam</code></p>
+        <p><strong>Permissions:</strong> Requires Kick Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">purge</span> <span class="aliases">(No aliases)</span>
+        <p>Purge messages in bulk, optionally from a specific member.</p>
+        <p><strong>Usage:</strong> <code>!purge [search] [member]</code></p>
+        <p><strong>Subcommands:</strong></p>
+        <p>- <code>bot [search] [prefix]</code>: Purge bot messages or those with a prefix.</p>
+        <p>- <code>contains [search] <substring></code>: Purge messages with specific text.</p>
+        <p>- <code>embeds [search]</code>: Purge messages with embeds.</p>
+        <p>- <code>emoji [search]</code>: Purge messages with custom emoji.</p>
+        <p>- <code>files [search]</code>: Purge messages with attachments.</p>
+        <p>- <code>humans [search]</code>: Purge messages by humans.</p>
+        <p>- <code>links [search]</code>: Purge messages with links.</p>
+        <p>- <code>mentions [search]</code> (alias: pings): Purge messages with mentions.</p>
+        <p><strong>Example:</strong> <code>!purge 50 @Sen</code> or <code>!purge bot 100 !</code></p>
+        <p><strong>Note:</strong> Max 1000 messages. Search defaults to 100.</p>
+        <p><strong>Permissions:</strong> Requires Manage Messages permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">records</span> <span class="aliases">(aliases: history, infractions)</span>
+        <p>View a user’s moderation records (warns, bans, etc.).</p>
+        <p><strong>Usage:</strong> <code>!records <user></code></p>
+        <p><strong>Example:</strong> <code>!history @Sen</code> or <code>!records 374589381752913930</code></p>
+        <p><strong>Note:</strong> Shows up to 10 recent cases. Accepts IDs or mentions.</p>
+        <p><strong>Permissions:</strong> Requires Kick Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">role</span> <span class="aliases">(No aliases)</span>
+        <p>Add or remove a role from a member using fuzzy matching if needed.</p>
+        <p><strong>Usage:</strong> <code>!role <member> <role></code></p>
+        <p><strong>Example:</strong> <code>!role @Sen Moderator</code> or <code>!role @Sen 123456789012345678</code></p>
+        <p><strong>Note:</strong> Can use role name, ID, or mention. Toggles the role’s presence.</p>
+        <p><strong>Permissions:</strong> Requires Manage Roles permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">softban</span> <span class="aliases">(No aliases)</span>
+        <p>Ban and immediately unban a member to clear their message history.</p>
+        <p><strong>Usage:</strong> <code>!softban <member> [days] [reason]</code></p>
+        <p><strong>Example:</strong> <code>!softban @Sen 1 Spamming</code></p>
+        <p><strong>Note:</strong> Requires confirmation. Days defaults to 2 (message deletion period).</p>
+        <p><strong>Permissions:</strong> Requires Ban Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">tempban</span> <span class="aliases">(No aliases)</span>
+        <p>Temporarily ban a member with a duration and optional message deletion period.</p>
+        <p><strong>Usage:</strong> <code>!tempban <member> <duration> [days] [reason]</code></p>
+        <p><strong>Example:</strong> <code>!tempban @Sen 1d 2 Spamming</code></p>
+        <p><strong>Note:</strong> Duration supports w/d/h/m/s. Days defaults to 2.</p>
+        <p><strong>Permissions:</strong> Requires Ban Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">unban</span> <span class="aliases">(alias: pardon)</span>
+        <p>Unban a user from the server.</p>
+        <p><strong>Usage:</strong> <code>!unban <user_id or mention></code></p>
+        <p><strong>Example:</strong> <code>!unban 374589381752913930</code></p>
+        <p><strong>Permissions:</strong> Requires Ban Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">unlock</span> <span class="aliases">(No aliases)</span>
+        <p>Unlock a channel, restoring @everyone’s ability to send messages.</p>
+        <p><strong>Usage:</strong> <code>!unlock [channel]</code></p>
+        <p><strong>Example:</strong> <code>!unlock #general</code> or <code>!unlock</code> (current channel)</p>
+        <p><strong>Permissions:</strong> Requires Manage Channels permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">unmute</span> <span class="aliases">(aliases: unsilence, untimeout)</span>
+        <p>Remove a timeout or mute role from a member.</p>
+        <p><strong>Usage:</strong> <code>!unmute <member> [reason]</code></p>
+        <p><strong>Example:</strong> <code>!unmute @Sen Behavior improved</code></p>
+        <p><strong>Note:</strong> Can’t unmute higher or equal roles.</p>
+        <p><strong>Permissions:</strong> Requires Moderate Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">warn</span> <span class="aliases">(No aliases)</span>
+        <p>Warn a member and log it to their record.</p>
+        <p><strong>Usage:</strong> <code>!warn <member> [reason]</code></p>
+        <p><strong>Example:</strong> <code>!warn @Sen Spamming</code></p>
+        <p><strong>Note:</strong> Sends a DM to the user if possible. Can’t warn higher or equal roles.</p>
+        <p><strong>Permissions:</strong> Requires Kick Members permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">warns</span> <span class="aliases">(No aliases)</span>
+        <p>List warnings for a member or the entire server.</p>
+        <p><strong>Usage:</strong> <code>!warns [member]</code></p>
+        <p><strong>Subcommands:</strong></p>
+        <p>- <code>remove <case_id></code>: Remove a specific warning.</p>
+        <p>- <code>clear <member></code>: Clear all warnings for a member.</p>
+        <p><strong>Example:</strong> <code>!warns @Sen</code>, <code>!warns remove ABCDEFGH</code>,
+          <code>!warns clear @Sen</code>
+        </p>
+        <p><strong>Note:</strong> Without a member, lists all server warnings (up to 10 recent).</p>
+        <p><strong>Permissions:</strong> Requires Kick Members permission.</p>
+      </div>
+    </div>
+
+    <div id="admin" class="tab-content">
+      <h2>Admin Commands</h2>
+      <div class="command">
+        <span class="name">channelname</span> <span class="aliases">(aliases: name, cn)</span>
+        <p>Change a channel’s name. Without a new name, shows the current name.</p>
+        <p><strong>Usage:</strong> <code>!channelname [channel] &lt;new_name&gt;</code></p>
+        <p><strong>Example:</strong> <code>!channelname #general new-general</code> or <code>!cn</code> to view current
+          name.</p>
+        <p><strong>Permissions:</strong> Requires Manage Channels permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">config</span> <span class="aliases">(No aliases)</span>
+        <p>Configure server settings like logging channels. Without arguments, shows all current settings.</p>
+        <p><strong>Usage:</strong> <code>!config [setting] [value]</code></p>
+        <p><strong>Settings:</strong> messages, profiles, mod_audit, join_leave (sets log channels).</p>
+        <p><strong>Example:</strong> <code>!config messages #message-logs</code> or <code>!config</code> to view all.
+        </p>
+        <p><strong>Note:</strong> Use <code>none</code> to clear a setting (e.g., <code>!config messages none</code>).
+        </p>
+        <p><strong>Permissions:</strong> Requires Administrator permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">create</span> <span class="aliases">(Subcommand of tag)</span>
+        <p>Create a new custom tag for the server.</p>
+        <p><strong>Usage:</strong> <code>!tag create &lt;name&gt; &lt;content&gt;</code></p>
+        <p><strong>Example:</strong> <code>!tag create hello Hi there!</code></p>
+        <p><strong>Permissions:</strong> Requires Manage Messages permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">description</span> <span class="aliases">(aliases: desc, topic, cd)</span>
+        <p>Change a channel’s description/topic. Without a description, shows the current topic.</p>
+        <p><strong>Usage:</strong> <code>!description [description]</code></p>
+        <p><strong>Example:</strong> <code>!desc Welcome to the server!</code> or <code>!topic</code> to view current.
+        </p>
+        <p><strong>Permissions:</strong> Requires Manage Channels permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">disable</span> <span class="aliases">(Subcommand of joinleave, messagelogs, modaudit,
+          starboard)</span>
+        <p>Disable specific logging or starboard features.</p>
+        <p><strong>Usage:</strong> <code>!joinleave disable</code>, <code>!messagelogs disable</code>,
+          <code>!modaudit disable</code>, <code>!starboard disable</code>
+        </p>
+        <p><strong>Example:</strong> <code>!jl disable</code></p>
+        <p><strong>Permissions:</strong> Requires Administrator permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">eval</span> <span class="aliases">(No aliases)</span>
+        <p>Evaluate Python code (restricted to bot owner).</p>
+        <p><strong>Usage:</strong> <code>!eval &lt;code&gt;</code></p>
+        <p><strong>Example:</strong> <code>!eval print("Hello")</code> or
+          <code>!eval ```py\nawait ctx.send("Hi")\n```</code>
+        </p>
+        <p><strong>Note:</strong> Outputs result or error in an embed. Bot owner only.</p>
+      </div>
+      <div class="command">
+        <span class="name">joinleave</span> <span class="aliases">(alias: jl)</span>
+        <p>Manage join/leave logging settings.</p>
+        <p><strong>Usage:</strong> <code>!joinleave [channel]</code></p>
+        <p><strong>Subcommands:</strong></p>
+        <p>- <code>view</code>: Show current join/leave log channel.</p>
+        <p>- <code>disable</code>: Disable join/leave logging.</p>
+        <p><strong>Example:</strong> <code>!jl #join-logs</code>, <code>!jl view</code>, <code>!jl disable</code></p>
+        <p><strong>Permissions:</strong> Requires Administrator permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">limit</span> <span class="aliases">(Subcommand of starboard)</span>
+        <p>Set the minimum number of stars needed for starboard.</p>
+        <p><strong>Usage:</strong> <code>!starboard limit &lt;number&gt;</code></p>
+        <p><strong>Example:</strong> <code>!sb limit 5</code></p>
+        <p><strong>Note:</strong> Must be at least 1.</p>
+        <p><strong>Permissions:</strong> Requires Administrator permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">messagelogs</span> <span class="aliases">(alias: ml)</span>
+        <p>Manage message logging settings (edits/deletions).</p>
+        <p><strong>Usage:</strong> <code>!messagelogs [channel]</code></p>
+        <p><strong>Subcommands:</strong></p>
+        <p>- <code>view</code>: Show current message logs channel.</p>
+        <p>- <code>disable</code>: Disable message logging.</p>
+        <p><strong>Example:</strong> <code>!ml #message-logs</code>, <code>!ml view</code>, <code>!ml disable</code></p>
+        <p><strong>Permissions:</strong> Requires Administrator permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">modaudit</span> <span class="aliases">(alias: ma)</span>
+        <p>Manage moderation audit logging settings.</p>
+        <p><strong>Usage:</strong> <code>!modaudit [channel]</code></p>
+        <p><strong>Subcommands:</strong></p>
+        <p>- <code>view</code>: Show current mod audit log channel.</p>
+        <p>- <code>disable</code>: Disable mod audit logging.</p>
+        <p><strong>Example:</strong> <code>!ma #mod-logs</code>, <code>!ma view</code>, <code>!ma disable</code></p>
+        <p><strong>Permissions:</strong> Requires Administrator permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">starboard</span> <span class="aliases">(alias: sb)</span>
+        <p>Manage starboard settings.</p>
+        <p><strong>Usage:</strong> <code>!starboard [channel]</code></p>
+        <p><strong>Subcommands:</strong></p>
+        <p>- <code>view</code>: Show current starboard channel and threshold.</p>
+        <p>- <code>disable</code>: Disable starboard.</p>
+        <p>- <code>limit &lt;number&gt;</code>: Set minimum stars needed (default: 3).</p>
+        <p><strong>Example:</strong> <code>!sb #starboard</code>, <code>!sb view</code>, <code>!sb limit 5</code></p>
+        <p><strong>Permissions:</strong> Requires Administrator permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">tag</span> <span class="aliases">(No aliases)</span>
+        <p>Get or manage custom tags. Shows a tag’s content if a name is provided.</p>
+        <p><strong>Usage:</strong> <code>!tag [name]</code></p>
+        <p><strong>Subcommands:</strong></p>
+        <p>- <code>create &lt;name&gt; &lt;content&gt;</code>: Create a new tag.</p>
+        <p>- <code>tlist</code>: List all tags.</p>
+        <p><strong>Example:</strong> <code>!tag hello</code>, <code>!tag create hi Hello!</code>,
+          <code>!tag tlist</code>
+        </p>
+        <p><strong>Permissions:</strong> <code>create</code> requires Manage Messages; viewing is open to all.</p>
+      </div>
+      <div class="command">
+        <span class="name">tlist</span> <span class="aliases">(Subcommand of tag)</span>
+        <p>List all custom tags on the server.</p>
+        <p><strong>Usage:</strong> <code>!tag tlist</code></p>
+        <p><strong>Example:</strong> <code>!tag tlist</code></p>
+      </div>
+      <div class="command">
+        <span class="name">toggleprefix</span> <span class="aliases">(alias: tp)</span>
+        <p>Toggle whether default prefixes work in the server. Requires a custom prefix to disable defaults.</p>
+        <p><strong>Usage:</strong> <code>!toggleprefix</code></p>
+        <p><strong>Example:</strong> <code>!tp</code></p>
+        <p><strong>Note:</strong> Use <code>!config prefix &lt;prefix&gt;</code> to set a custom prefix first.</p>
+        <p><strong>Permissions:</strong> Requires Administrator permission.</p>
+      </div>
+      <div class="command">
+        <span class="name">view</span> <span class="aliases">(Subcommand of joinleave, messagelogs, modaudit,
+          starboard)</span>
+        <p>Show current settings for logging or starboard.</p>
+        <p><strong>Usage:</strong> <code>!joinleave view</code>, <code>!messagelogs view</code>,
+          <code>!modaudit view</code>, <code>!starboard view</code>
+        </p>
+        <p><strong>Example:</strong> <code>!sb view</code></p>
+        <p><strong>Permissions:</strong> Requires Administrator permission.</p>
+      </div>
+    </div>
+
+    <div id="casual" class="tab-content">
+      <h2>Casual Commands</h2>
+      <div class="command">
+        <span class="name">about</span> <span class="aliases">(aliases: info, abt)</span>
+        <p>Shows information about Cro bot, including links and prefix details.</p>
+        <p><strong>Usage:</strong> <code>!about</code></p>
+        <p><strong>Example:</strong> <code>!info</code></p>
+      </div>
+      <div class="command">
+        <span class="name">afk</span> <span class="aliases">(No aliases)</span>
+        <p>Sets your AFK status with an optional message. Cro notifies others if you’re mentioned and removes it when
+          you return.</p>
+        <p><strong>Usage:</strong> <code>!afk [message]</code></p>
+        <p><strong>Example:</strong> <code>!afk Be right back</code> or <code>!afk</code> (defaults to "AFK")</p>
+        <p><strong>Note:</strong> Mentions like @everyone are blocked.</p>
+      </div>
+      <div class="command">
+        <span class="name">avatar</span> <span class="aliases">(aliases: av, avi, pfp)</span>
+        <p>Displays a user’s avatar. Defaults to the command user if no ID is provided.</p>
+        <p><strong>Usage:</strong> <code>!avatar [user_id or mention]</code></p>
+        <p><strong>Example:</strong> <code>!av</code> or <code>!pfp @Sen</code></p>
+      </div>
+      <div class="command">
+        <span class="name">banner</span> <span class="aliases">(No aliases)</span>
+        <p>Displays a user’s banner. Defaults to the command user if no ID is provided.</p>
+        <p><strong>Usage:</strong> <code>!banner [user_id or mention]</code></p>
+        <p><strong>Example:</strong> <code>!banner</code> or <code>!banner 374589381752913930</code></p>
+        <p><strong>Note:</strong> Returns a message if the user has no banner.</p>
+      </div>
+      <div class="command">
+        <span class="name">github</span> <span class="aliases">(No aliases)</span>
+        <p>Displays a GitHub profile with stats and links.</p>
+        <p><strong>Usage:</strong> <code>!github <username></code></p>
+        <p><strong>Example:</strong> <code>!github CursedSen</code></p>
+      </div>
+      <div class="command">
+        <span class="name">invite</span> <span class="aliases">(No aliases)</span>
+        <p>Provides a link to invite Cro to your server.</p>
+        <p><strong>Usage:</strong> <code>!invite</code></p>
+        <p><strong>Example:</strong> <code>!invite</code></p>
+      </div>
+      <div class="command">
+        <span class="name">issues</span> <span class="aliases">(aliases: issue, features, request, suggestion)</span>
+        <p>Provides a link to report issues or request features for Cro.</p>
+        <p><strong>Usage:</strong> <code>!issues</code></p>
+        <p><strong>Example:</strong> <code>!suggestion</code></p>
+      </div>
+      <div class="command">
+        <span class="name">ping</span> <span class="aliases">(No aliases)</span>
+        <p>Checks Cro’s latency in milliseconds.</p>
+        <p><strong>Usage:</strong> <code>!ping</code></p>
+        <p><strong>Example:</strong> <code>!ping</code></p>
+      </div>
+      <div class="command">
+        <span class="name">profile</span> <span class="aliases">(aliases: userinfo, user)</span>
+        <p>Displays a user’s profile with details like ID, roles, and join dates. Defaults to the command user if no ID
+          is provided.</p>
+        <p><strong>Usage:</strong> <code>!profile [user_id or mention]</code></p>
+        <p><strong>Example:</strong> <code>!userinfo</code> or <code>!user @Sen</code></p>
+      </div>
+      <div class="command">
+        <span class="name">reminder</span> <span class="aliases">(aliases: remind, remindme)</span>
+        <p>Sets a reminder with a time duration and message. Supports weeks (w), days (d), hours (h), minutes (m),
+          seconds (s).</p>
+        <p><strong>Usage:</strong> <code>!reminder <time> <message></code></p>
+        <p><strong>Example:</strong> <code>!remind 2h Meeting time</code> or <code>!remindme 30m Feed the cat</code></p>
+        <p><strong>Note:</strong> Max 30 days, 1000 characters. Mentions/Markdown are escaped.</p>
+      </div>
+      <div class="command">
+        <span class="name">reminders</span> <span class="aliases">(No aliases)</span>
+        <p>Lists your active reminders with time remaining.</p>
+        <p><strong>Usage:</strong> <code>!reminders</code></p>
+        <p><strong>Example:</strong> <code>!reminders</code></p>
+      </div>
+      <div class="command">
+        <span class="name">steam</span> <span class="aliases">(No aliases)</span>
+        <p>Displays a Steam profile with status, links, and stats using a Steam ID, vanity URL, or profile link.</p>
+        <p><strong>Usage:</strong> <code>!steam <steam_id or vanity_url></code></p>
+        <p><strong>Example:</strong> <code>!steam CursedSen</code> or <code>!steam 76561198884824734</code></p>
+        <p><strong>Note:</strong> Requires a valid Steam API key configured in the bot.</p>
+      </div>
+    </div>
+
+    <div id="fun" class="tab-content">
+      <h2>This is W.I.P</h2>
+      <p>There are a LOT</p>
+    </div>
+
+    <div id="help" class="tab-content">
+      <h2>Help Commands</h2>
+      <div class="command">
+        <span class="name">commands</span> <span class="aliases">(No aliases)</span>
+        <p>Lists all available commands you can use, grouped by category (cog). Hidden or permission-restricted commands
+          are excluded.</p>
+        <p><strong>Usage:</strong> <code>!commands</code></p>
+        <p><strong>Example:</strong> <code>!commands</code></p>
+        <p><strong>Note:</strong> Only shows commands you have permission to run in the current context.</p>
+      </div>
+      <div class="command">
+        <span class="name">help</span> <span class="aliases">(No aliases)</span>
+        <p>Shows general help or detailed info for a specific command. Without a command name, provides an overview with
+          tips and links.</p>
+        <p><strong>Usage:</strong> <code>!help [command_name]</code></p>
+        <p><strong>Example:</strong> <code>!help</code> or <code>!help ping</code></p>
+        <p><strong>Note:</strong> For a command, shows its description and usage syntax (e.g., <code>!ping</code>).</p>
+      </div>
     </div>
   </div>
 
   <script>
+    function openTab(tabName) {
+      const tabs = document.getElementsByClassName('tab-content');
+      const buttons = document.getElementsByClassName('tab-button');
+
+      for (let tab of tabs) {
+        tab.classList.remove('active');
+      }
+      for (let button of buttons) {
+        button.classList.remove('active');
+      }
+
+      document.getElementById(tabName).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
       localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
