@@ -1,22 +1,25 @@
 :root {
-  --bg-color: #0d1117;
-  --text-color: #c9d1d9;
-  --card-bg: #161b22;
-  --accent-color: #8b949e;
-  --shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  --bg-color: linear-gradient(135deg, #0d1117, #1e252f);
+  --text-color: #e0e7ff;
+  --card-bg: rgba(22, 27, 34, 0.85);
+  --accent-color: #00b4ff;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 180, 255, 0.2);
   --dark-bg: #0d1117;
-  --dark-text: #c9d1d9;
-  --dark-card: #161b22;
+  --dark-text: #e0e7ff;
+  --dark-card: rgba(22, 27, 34, 0.85);
+  --border-glow: rgba(0, 180, 255, 0.5);
 }
 
 body.light-mode {
-  --bg-color: #f0f0f0;
-  --text-color: #000000;
-  --card-bg: #ffffff;
-  --accent-color: #0366d6;
-  --dark-bg: #f0f0f0;
-  --dark-text: #000000;
-  --dark-card: #ffffff;
+  --bg-color: linear-gradient(135deg, #e6f0fa, #ffffff);
+  --text-color: #1a1a1a;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --accent-color: #0078d4;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 15px rgba(0, 120, 212, 0.3);
+  --dark-bg: #e6f0fa;
+  --dark-text: #1a1a1a;
+  --dark-card: rgba(255, 255, 255, 0.9);
+  --border-glow: rgba(0, 120, 212, 0.6);
 }
 
 * {
@@ -26,17 +29,47 @@ body.light-mode {
 }
 
 body {
-  font-family: "Segoe UI", Roboto, sans-serif;
+  font-family: "Orbitron", "Segoe UI", Roboto, sans-serif;
   background: var(--bg-color);
   color: var(--text-color);
   line-height: 1.6;
   padding: 20px;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 180, 255, 0.1), transparent 70%);
+  opacity: 0.3;
+  animation: pulse 15s infinite;
+  z-index: -1;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
 }
 
 .container {
   max-width: 900px;
   margin: 0 auto;
+  position: relative;
 }
 
 .header {
@@ -44,139 +77,190 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  padding: 10px 15px;
+  padding: 15px 20px;
   background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-glow);
   box-shadow: var(--shadow);
+  border-radius: 12px;
+  animation: float 4s ease-in-out infinite;
 }
 
 .header h1 {
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, var(--accent-color), #ff79c6);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .theme-toggle {
-  padding: 8px 16px;
-  background: var(--accent-color);
+  padding: 10px 20px;
+  background: linear-gradient(45deg, var(--accent-color), #ff4081);
   color: white;
   border: none;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .theme-toggle:hover {
-  background: #6e7681;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--accent-color);
 }
 
 .social-buttons {
   display: flex;
-  gap: 10px;
+  gap: 15px;
 }
 
 .social-buttons a {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  transition: opacity 0.2s;
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s, filter 0.3s;
 }
 
 .social-buttons a:hover {
-  opacity: 0.8;
+  transform: rotate(15deg) scale(1.2);
+  filter: drop-shadow(0 0 8px var(--accent-color));
 }
 
 .social-buttons img {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
 }
 
 .tabs {
   display: flex;
-  gap: 2px;
+  gap: 4px;
   margin-bottom: 20px;
-  background: #1a1a1a;
-  padding: 2px;
+  background: rgba(26, 26, 26, 0.7);
+  padding: 4px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
 }
 
 .light-mode .tabs {
-  background: #d1d1d1;
+  background: rgba(209, 209, 209, 0.7);
 }
 
 .tab-button {
-  padding: 10px 20px;
+  padding: 12px 24px;
   background: var(--card-bg);
-  border: none;
+  border: 1px solid var(--border-glow);
   cursor: pointer;
   color: var(--text-color);
-  font-weight: 500;
-  transition: background 0.2s;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-radius: 8px;
 }
 
 .tab-button.active {
-  background: var(--accent-color);
+  background: linear-gradient(45deg, var(--accent-color), #ff79c6);
   color: white;
+  box-shadow: 0 0 10px var(--accent-color);
 }
 
 .tab-button:hover:not(.active) {
-  background: #30363d;
+  background: rgba(48, 54, 61, 0.9);
+  transform: translateY(-2px);
 }
 
 .light-mode .tab-button:hover:not(.active) {
-  background: #e6e6e6;
+  background: rgba(230, 230, 230, 0.9);
 }
 
 .tab-content {
   display: none;
   background: var(--card-bg);
-  padding: 20px;
+  padding: 25px;
   box-shadow: var(--shadow);
+  border-radius: 12px;
+  border: 1px solid var(--border-glow);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.5s ease;
 }
 
 .tab-content.active {
   display: block;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .tab-content h2 {
   margin-bottom: 15px;
-  font-size: 18px;
-  font-weight: 600;
-  border-bottom: 2px solid var(--accent-color);
-  padding-bottom: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--accent-color), #ff79c6);
+  -webkit-background-clip: text;
+  color: transparent;
+  border-bottom: none;
 }
 
 .tab-content h3 {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
   color: var(--accent-color);
 }
 
 .tab-content p {
   margin-bottom: 15px;
+  font-family: "Courier New", monospace;
 }
 
 .tab-content a {
   color: var(--accent-color);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  transition: color 0.3s;
 }
 
 .tab-content a:hover {
-  text-decoration: underline;
+  color: #ff79c6;
+  text-decoration: none;
+  text-shadow: 0 0 5px var(--accent-color);
 }
 
 @media (max-width: 600px) {
   .header {
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
   }
 
   .tabs {
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
   }
 
   .social-buttons {
     justify-content: center;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
   }
 }

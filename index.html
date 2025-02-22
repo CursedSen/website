@@ -11,6 +11,7 @@
   <meta property="og:url" content="https://sen.wtf">
   <meta property="og:type" content="website">
   <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -25,14 +26,14 @@
           <a href="https://steamcommunity.com/id/CursedSen"><img src="/img/steam.png" alt="Steam"></a>
           <a href="https://bsky.app/profile/sen.wtf"><img src="/img/bsky.png" alt="BlueSky"></a>
         </div>
-        <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+        <button class="theme-toggle">Toggle Theme</button>
       </div>
     </div>
 
     <div class="tabs">
-      <button class="tab-button active" onclick="openTab('about')">About Me</button>
-      <button class="tab-button" onclick="openTab('projects')">Projects</button>
-      <button class="tab-button" onclick="openTab('friends')">Friends</button>
+      <button class="tab-button active" data-tab="about" onclick="openTab('about')">About Me</button>
+      <button class="tab-button" data-tab="projects" onclick="openTab('projects')">Projects</button>
+      <button class="tab-button" data-tab="friends" onclick="openTab('friends')">Friends</button>
       <button class="tab-button" onclick="window.location.href='/cro'">Cro Docs</button>
     </div>
 
@@ -55,7 +56,6 @@
       <h2>Projects</h2>
       <h3>Cro - <a href="https://github.com/CursedSen/Cro-bot">Repository</a> and <a href="/cro">Documentation</a></h3>
       <p>My open-source Discord bot written in Python. Powered by Monster Energy and autism</p>
-
       <h3>Personal Website</h3>
       <p>This is my little corner of the internet, slapped together with some HTML and CSS. It’s forever a work in
         progress, just like me.</p>
@@ -63,19 +63,16 @@
 
     <div id="friends" class="tab-content">
       <h2>Friends</h2>
-
       <h3>GetAGripGal - <a href="https://getagripgal.github.io">Website</a></h3>
-      <p>She’s a tech nut like me and developer. Been friends forever, and she’s just awesome. Always has got my back <3</p>
-
+      <p>She’s a tech nut like me and developer. Been friends forever, and she’s just awesome. Always has got my back
+        &lt;3</p>
       <h3>ThisIsElias - <a href="https://thisiselias.github.io">Website</a></h3>
-      <p>Car guy, CS2 guy, and loves hunting bugs. He’s the bestest boy, oh my goodness gracious. Oh, and fixed gap in geometry</p>
-
+      <p>Car guy, CS2 guy, and loves hunting bugs. He’s the bestest boy, oh my goodness gracious. Oh, and fixed gap
+        in geometry</p>
       <h3>JackDotJS - <a href="https://jackdotjs.github.io">Website</a></h3>
       <p>Dev bro, 3D artist, joat, I get inspired by him a lot</p>
-
       <h3>BunniRubi - <a href="https://twitch.tv/bunnirubi">Twitch</a></h3>
       <p>Great friend, streams epic shit, and makes killer art. Crashes out for a living</p>
-
     </div>
   </div>
 
@@ -91,18 +88,71 @@
         button.classList.remove('active');
       }
 
-      document.getElementById(tabName).classList.add('active');
-      event.currentTarget.classList.add('active');
+      const targetTab = document.getElementById(tabName);
+      if (targetTab) {
+        targetTab.classList.add('active');
+        const activeButton = document.querySelector(`.tab-button[data-tab="${tabName}"]`);
+        if (activeButton) {
+          activeButton.classList.add('active');
+        }
+        spawnParticles(targetTab);
+      }
     }
 
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
       localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+      document.body.style.transition = 'background 0.5s ease';
+      spawnParticles(document.body);
+    }
+
+    function spawnParticles(element) {
+      const rect = element.getBoundingClientRect();
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.width = '5px';
+        particle.style.height = '5px';
+        particle.style.background = `radial-gradient(circle, ${document.body.classList.contains('light-mode') ? '#0078d4' : '#00b4ff'}, transparent)`;
+        particle.style.left = `${rect.left + Math.random() * rect.width}px`;
+        particle.style.top = `${rect.top + Math.random() * rect.height}px`;
+        particle.style.zIndex = '1000';
+        document.body.appendChild(particle);
+
+        const angle = Math.random() * 2 * Math.PI;
+        const velocity = 50 + Math.random() * 100;
+        let x = 0;
+        let y = 0;
+
+        const animateParticle = () => {
+          x += Math.cos(angle) * velocity * 0.02;
+          y += Math.sin(angle) * velocity * 0.02;
+          particle.style.transform = `translate(${x}px, ${y}px)`;
+          particle.style.opacity = Math.max(0, 1 - (Math.sqrt(x * x + y * y) / 100));
+          if (particle.style.opacity <= 0) {
+            particle.remove();
+          } else {
+            requestAnimationFrame(animateParticle);
+          }
+        };
+        animateParticle();
+      }
     }
 
     if (localStorage.getItem('theme') === 'light') {
       document.body.classList.add('light-mode');
     }
+
+    document.querySelectorAll('.tab-button[data-tab]').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const tabName = e.currentTarget.getAttribute('data-tab');
+        if (tabName) {
+          openTab(tabName);
+        }
+      });
+    });
+
+    document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
   </script>
 </body>
 
