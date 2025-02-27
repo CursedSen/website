@@ -37,6 +37,7 @@ body {
   transition: all 0.5s ease;
   position: relative;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 body::before {
