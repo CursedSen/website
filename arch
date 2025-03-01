@@ -1,0 +1,124 @@
+#!/bin/sh
+sudo pacman -Syu
+
+if ! command -v yay > /dev/null; then
+    echo "Installing yay..."
+    sudo pacman -S --noconfirm git
+    git clone https://aur.archlinux.org/yay-git.git
+    cd yay-git
+    makepkg -si --noconfirm
+    cd ..
+    rm -rf yay-git
+else
+    echo "yay is already installed."
+fi
+
+packages=(
+    alsa-utils
+    amd-ucode
+    base
+    base-devel
+    brave-bin
+    dialog
+    discord
+    dolphin
+    dunst
+    efibootmgr
+    fastfetch
+    fish
+    flatpak
+    git
+    github-desktop-bin
+    google-chrome
+    goverlay
+    grim
+    grimshot
+    gst-plugin-pipewire
+    gtk2
+    htop
+    hypridle
+    hyprland
+    hyprlock
+    hyprpaper
+    iwd
+    kitty
+    lf
+    lib32-giflib
+    lib32-gnutls
+    lib32-gst-plugins-base-libs
+    lib32-gtk2
+    lib32-gtk3
+    lib32-libpng
+    lib32-libpulse
+    lib32-libva
+    lib32-libxcomposite
+    lib32-libxinerama
+    lib32-ocl-icd
+    lib32-openal
+    lib32-sdl2-compat
+    lib32-v4l-utils
+    libpulse
+    lsd
+    lutris
+    nano
+    neofetch
+    neovim
+    network-manager-applet
+    noto-fonts-cjk
+    noto-fonts-emoji
+    noto-fonts-extra
+    ntfs-3g
+    nwg-look
+    openal
+    pacman-contrib
+    pavucontrol
+    pipewire
+    pipewire-alsa
+    pipewire-jack
+    pipewire-pulse
+    polkit-kde-agent
+    prismlauncher
+    python-pywal
+    qt5-wayland
+    qt5ct
+    qt6-wayland
+    qt6ct
+    rofi-wayland
+    slurp
+    smartmontools
+    spotify
+    steam
+    ttf-google-sans
+    ttf-jetbrains-mono
+    ttf-jetbrains-mono-nerd
+    vim
+    vmware-workstation
+    vscodium-bin
+    vulkan-radeon
+    waybar
+    wget
+    wine
+    wireless_tools
+    wireplumber
+    wlogout
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-hyprland
+    xdg-utils
+    xf86-video-amdgpu
+    xf86-video-ati
+    xorg-server
+    xorg-xinit
+    zram-generator
+    zsh
+)
+
+for pkg in "${packages[@]}"; do
+    if ! pacman -Qs "$pkg" > /dev/null; then
+        echo "Installing $pkg..."
+        yay -S --noconfirm "$pkg"
+    else
+        echo "$pkg is already installed."
+    fi
+done
+
+echo "All packages processed."
