@@ -154,7 +154,9 @@ packages=(
 )
 
 echo "Installing packages with automatic confirmation..."
-yay -S --noconfirm "${packages[@]}"
+for pkg in "${packages[@]}"; do
+    yay -S  "$pkg" --noconfirm
+done
 
 echo "Installing Steam (interactive selection)..."
 yay -S steam
